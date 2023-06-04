@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker_app/widgets/my_fab.dart';
 import 'package:habit_tracker_app/widgets/task_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,12 +20,13 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       tasks[index][1] = value;
     });
-    print('value is now $value');
+    //print('value of ${tasks[index][0]}is now ${tasks[index][1]}');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: const MyFloatingActionButton(),
         backgroundColor: Colors.grey[300],
         body: ListView.builder(
           itemCount: tasks.length,

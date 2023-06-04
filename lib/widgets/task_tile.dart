@@ -14,11 +14,11 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(1.0),
+      padding: const EdgeInsets.all(4.0),
       child: Container(
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-            color: Colors.grey[100], borderRadius: BorderRadius.circular(20)),
+            color: Colors.grey[100], borderRadius: BorderRadius.circular(12)),
         child: Row(
           children: [
             Checkbox(value: habitCompleted, onChanged: onChangedValue),
