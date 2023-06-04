@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Habit Tracker')),
+        backgroundColor: Colors.grey[300],
         body: ListView.builder(
           itemCount: tasks.length,
           itemBuilder: (context, index) => TaskTile(
