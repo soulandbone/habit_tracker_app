@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
 class NewHabitDialog extends StatelessWidget {
-  const NewHabitDialog({super.key});
+  final controller;
+  VoidCallback onSaved;
+  VoidCallback onCancel;
+  NewHabitDialog(
+      {required this.controller,
+      required this.onSaved,
+      required this.onCancel,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController nameController = TextEditingController();
     return AlertDialog(
         actions: [
           MaterialButton(
-            onPressed: () {},
+            onPressed: onSaved,
             color: Colors.black,
             child: const Text(
               'Save',
@@ -17,9 +23,7 @@ class NewHabitDialog extends StatelessWidget {
             ),
           ),
           MaterialButton(
-            onPressed: () {
-              cancel(context);
-            },
+            onPressed: onCancel,
             color: Colors.black,
             child: const Text(
               'Cancel',
@@ -33,13 +37,7 @@ class NewHabitDialog extends StatelessWidget {
             border: OutlineInputBorder(
                 borderSide: BorderSide(width: 1, color: Colors.black)),
           ),
-          controller: nameController,
+          controller: controller,
         ));
-  }
-
-  void cancel(
-    BuildContext context,
-  ) {
-    Navigator.of(context).pop();
   }
 }
