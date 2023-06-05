@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NewHabitDialog extends StatelessWidget {
-  final controller;
-  VoidCallback onSaved;
-  VoidCallback onCancel;
+  final TextEditingController controller;
+  final VoidCallback onSaved;
+  final VoidCallback onCancel;
   NewHabitDialog(
       {required this.controller,
       required this.onSaved,
