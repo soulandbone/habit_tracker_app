@@ -26,9 +26,9 @@ class _HomePageState extends State<HomePage> {
     //print('value of ${tasks[index][0]}is now ${tasks[index][1]}');
   }
 
-  void save(String name) {
+  void save() {
     setState(() {
-      tasks.add([name, false]);
+      tasks.add([_habitNameController.text, false]);
     });
     _habitNameController.clear();
     Navigator.of(context).pop();
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context) => NewHabitDialog(
               controller: _habitNameController,
               onCancel: cancel,
-              onSaved: () => save(_habitNameController.text),
+              onSaved: save,
             ));
   }
 
