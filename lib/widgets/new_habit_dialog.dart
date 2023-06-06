@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-class NewHabitDialog extends StatelessWidget {
+class MyHabitDialog extends StatelessWidget {
+  final String hintText;
   final TextEditingController controller;
   final VoidCallback onSaved;
   final VoidCallback onCancel;
-  NewHabitDialog(
-      {required this.controller,
+  MyHabitDialog(
+      {required this.hintText,
+      required this.controller,
       required this.onSaved,
       required this.onCancel,
       super.key});
@@ -32,9 +34,9 @@ class NewHabitDialog extends StatelessWidget {
           ),
         ],
         content: TextField(
-          decoration: const InputDecoration(
-            hintText: 'Enter name of the task',
-            border: OutlineInputBorder(
+          decoration: InputDecoration(
+            hintText: hintText,
+            border: const OutlineInputBorder(
                 borderSide: BorderSide(width: 1, color: Colors.black)),
           ),
           controller: controller,
