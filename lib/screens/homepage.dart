@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/widgets/my_fab.dart';
-import 'package:habit_tracker_app/widgets/task_tile.dart';
+import 'package:habit_tracker_app/widgets/habit_tile.dart';
 
 import '../widgets/new_habit_dialog.dart';
 
@@ -56,10 +56,10 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.grey[300],
         body: ListView.builder(
           itemCount: tasks.length,
-          itemBuilder: (context, index) => TaskTile(
+          itemBuilder: (context, index) => HabitTile(
             title: tasks[index][0],
             habitCompleted: tasks[index][1],
-            onChangedValue: (value) => changeStatus(index, value!),
+            onChanged: (value) => changeStatus(index, value!),
           ),
         ));
   }
