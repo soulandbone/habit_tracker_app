@@ -5,6 +5,7 @@ class MyHabitDialog extends StatelessWidget {
   final TextEditingController controller;
   final VoidCallback onSaved;
   final VoidCallback onCancel;
+
   MyHabitDialog(
       {required this.hintText,
       required this.controller,

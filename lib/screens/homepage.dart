@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker_app/data/habit_database.dart';
+import 'package:habit_tracker_app/helpers/boxes.dart';
 import 'package:habit_tracker_app/widgets/my_fab.dart';
 import 'package:habit_tracker_app/widgets/habit_tile.dart';
 
@@ -12,33 +14,48 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List habits = [
-    ['Morning Run', false],
-    ['Math Study', false],
-    ['Workout', false]
-  ];
+  HabitDataBase database = HabitDataBase();
+
+  var box = Boxes.getHabits();
+
+  @override
+  void initState() {
+    if (box.get('CURRENT_HABIT_LIST') == null) {
+      //there is not a new habit list defined.
+      database.createDefaultData();
+      print(
+          'Default data is executed'); //if the list has been updated, this executes
+    } else {
+      database.loadDatabase();
+    }
+
+    super.initState();
+  }
 
   final _habitNameController = TextEditingController();
   void changeStatus(int index, bool value) {
     setState(() {
-      habits[index][1] = value;
+      database.todaysHabitList[index][1] = value;
     });
     //print('value of ${tasks[index][0]}is now ${tasks[index][1]}');
+    database.updateDatabase();
   }
 
   void save() {
     setState(() {
-      habits.add([_habitNameController.text, false]);
+      database.todaysHabitList.add([_habitNameController.text, false]);
     });
     _habitNameController.clear();
+    database.updateDatabase();
     Navigator.of(context).pop();
   }
 
   void edit(index) {
     setState(() {
-      habits[index][0] = _habitNameController.text;
+      database.todaysHabitList[index][0] = _habitNameController.text;
     });
     _habitNameController.clear();
+    database.updateDatabase();
     Navigator.of(context).pop();
   }
 
@@ -56,13 +73,14 @@ class _HomePageState extends State<HomePage> {
               onCancel: cancel,
               onSaved: save,
             ));
+    database.updateDatabase();
   }
 
   void editHabit(int index) {
     showDialog(
         context: context,
         builder: (context) => MyHabitDialog(
-              hintText: habits[index][0],
+              hintText: database.todaysHabitList[index][0],
               controller: _habitNameController,
               onCancel: cancel,
               onSaved: () => edit(index),
@@ -71,20 +89,24 @@ class _HomePageState extends State<HomePage> {
 
   void deleteHabit(int index) {
     setState(() {
-      habits.removeAt(index);
+      database.todaysHabitList.removeAt(index);
     });
+    database.updateDatabase();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(
+      'box keys are ${box.keys} and values are ${box.values}',
+    );
     return Scaffold(
       floatingActionButton: MyFloatingActionButton(onPressed: createNewHabit),
       backgroundColor: Colors.grey[300],
       body: ListView.builder(
-        itemCount: habits.length,
+        itemCount: database.todaysHabitList.length,
         itemBuilder: (context, index) => HabitTile(
-            title: habits[index][0],
-            habitCompleted: habits[index][1],
+            title: database.todaysHabitList[index][0],
+            habitCompleted: database.todaysHabitList[index][1],
             onChanged: (boolValue) => changeStatus(index, boolValue!),
             onEdit: (contextValue) => editHabit(index),
             onDelete: (contextValue) => deleteHabit(index)),
