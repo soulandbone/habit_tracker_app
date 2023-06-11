@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/data/habit_database.dart';
 import 'package:habit_tracker_app/helpers/boxes.dart';
+import 'package:habit_tracker_app/widgets/heat_map.dart';
 import 'package:habit_tracker_app/widgets/my_fab.dart';
 import 'package:habit_tracker_app/widgets/habit_tile.dart';
 
@@ -99,18 +100,25 @@ class _HomePageState extends State<HomePage> {
     print(
       'box keys are ${box.keys} and values are ${box.values}',
     );
+    print(
+        'The completion number for the day 20230610 is ${database.calculatePercentage(box.get('20230610'))}');
     return Scaffold(
       floatingActionButton: MyFloatingActionButton(onPressed: createNewHabit),
       backgroundColor: Colors.grey[300],
-      body: ListView.builder(
-        itemCount: database.todaysHabitList.length,
-        itemBuilder: (context, index) => HabitTile(
-            title: database.todaysHabitList[index][0],
-            habitCompleted: database.todaysHabitList[index][1],
-            onChanged: (boolValue) => changeStatus(index, boolValue!),
-            onEdit: (contextValue) => editHabit(index),
-            onDelete: (contextValue) => deleteHabit(index)),
-      ),
+      body: ListView(children: [
+        HabitHeatMap(),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: database.todaysHabitList.length,
+          itemBuilder: (context, index) => HabitTile(
+              title: database.todaysHabitList[index][0],
+              habitCompleted: database.todaysHabitList[index][1],
+              onChanged: (boolValue) => changeStatus(index, boolValue!),
+              onEdit: (contextValue) => editHabit(index),
+              onDelete: (contextValue) => deleteHabit(index)),
+        ),
+      ]),
     );
   }
 }
