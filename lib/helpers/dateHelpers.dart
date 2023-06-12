@@ -13,9 +13,7 @@ class DateHelpers {
 
     DateTime dateTime =
         DateTime(int.parse(year), int.parse(month), int.parse(day));
-    print('String year is $year');
-    print('String month is $month');
-    print('String day is $day');
+
     return dateTime;
   }
 }

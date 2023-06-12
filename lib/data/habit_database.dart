@@ -44,11 +44,15 @@ class HabitDataBase {
   double calculatePercentage(List list) {
     int doneHabits = 0;
     for (var habit in list) {
+      // every habit is a List Object, where index 0 is the name of the habit, and index 1, is the boolean of whether is it completed or not
       if (habit[1]) {
         doneHabits++;
       }
     }
-    return list.isEmpty ? 0.0 : (doneHabits / list.length);
+    return list.isEmpty
+        ? 0.0
+        : (doneHabits /
+            list.length); //to avoid problems of dividing by zero in cases when all the items of the list have been deleted.
   }
 
   Map<DateTime, int>? calculateDataSets(Box box) {
