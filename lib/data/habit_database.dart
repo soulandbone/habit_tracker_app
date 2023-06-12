@@ -1,5 +1,6 @@
 //reference the box
 
+import 'package:habit_tracker_app/helpers/dateHelpers.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
@@ -42,11 +43,26 @@ class HabitDataBase {
 
   double calculatePercentage(List list) {
     int doneHabits = 0;
-    for (var habitDayList in list) {
-      if (habitDayList[1]) {
+    for (var habit in list) {
+      if (habit[1]) {
         doneHabits++;
       }
     }
     return list.isEmpty ? 0.0 : (doneHabits / list.length);
+  }
+
+  Map<DateTime, int>? calculateDataSets(Box box) {
+    Map<DateTime, int>? dataSets = {};
+
+    for (var element in box.keys) {
+      if (element.length == 8) {
+        // it is a date
+        var date = DateHelpers.stringToDate(
+            element); //create the DateTime object from the String
+        var number = ((calculatePercentage(box.get(element)) * 10)).round();
+        dataSets[date] = number;
+      }
+    }
+    return dataSets;
   }
 }

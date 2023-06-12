@@ -102,11 +102,16 @@ class _HomePageState extends State<HomePage> {
     );
     print(
         'The completion number for the day 20230610 is ${database.calculatePercentage(box.get('20230610'))}');
+    print('the datasets are ${database.calculateDataSets(box)} ');
+    // print(
+    //     'The number of entries that are dates are ${database.calculateDataSets(box)}');
     return Scaffold(
       floatingActionButton: MyFloatingActionButton(onPressed: createNewHabit),
       backgroundColor: Colors.grey[300],
       body: ListView(children: [
-        HabitHeatMap(),
+        HabitHeatMap(
+          datasets: database.calculateDataSets(box),
+        ),
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),

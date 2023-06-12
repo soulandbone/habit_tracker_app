@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'package:habit_tracker_app/helpers/dateHelpers.dart';
+
+import '../helpers/boxes.dart';
 
 class HabitHeatMap extends StatelessWidget {
-  const HabitHeatMap({super.key});
+  final Map<DateTime, int>? datasets;
+
+  HabitHeatMap({required this.datasets, super.key});
 
   @override
   Widget build(BuildContext context) {
     return HeatMapCalendar(
-      initDate: DateTime.now(),
+      initDate: DateHelpers.stringToDate(box.get('START_DATE')),
       defaultColor: Colors.white,
       flexible: true,
       colorMode: ColorMode.color,
-      datasets: {
-        DateTime(2023, 6, 3): 3,
-        DateTime(2023, 6, 6): 7,
-        DateTime(2023, 6, 8): 10,
-        DateTime(2023, 6, 10): 13,
-        DateTime(2023, 6, 11): 6,
-      },
+      datasets: datasets,
       colorsets: {
-        1: Colors.green.shade100,
-        2: Colors.green.shade200,
-        3: Colors.green.shade300,
-        4: Colors.green.shade400,
-        5: Colors.green.shade500,
-        6: Colors.green.shade600,
-        7: Colors.green.shade700,
-        8: Colors.green.shade800,
-        9: Colors.green.shade900
+        1: Colors.green.shade50,
+        2: Colors.green.shade100,
+        3: Colors.green.shade200,
+        4: Colors.green.shade300,
+        5: Colors.green.shade400,
+        6: Colors.green.shade500,
+        7: Colors.green.shade600,
+        8: Colors.green.shade700,
+        9: Colors.green.shade800,
+        10: Colors.green.shade900,
       },
       onClick: (value) {
         ScaffoldMessenger.of(context)
@@ -35,4 +35,6 @@ class HabitHeatMap extends StatelessWidget {
       },
     );
   }
+
+  var box = Boxes.getHabits();
 }
